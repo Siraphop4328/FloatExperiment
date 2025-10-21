@@ -2,6 +2,9 @@
 #include <cmath>
 #include <iostream>
 
+bool isDragging = false;
+sf::Vector2f dragOffset;
+
 // --- Ball Implementations ---
 
 // Constructor Definition
@@ -28,6 +31,29 @@ bool Ball::contains(const sf::Vector2f& point) const {
 	float dy = point.y - py;
 	return std::sqrt(dx * dx + dy * dy) <= radius;
 }
+
+void Ball::onMousePressed(const sf::Vector2f& pos)
+{
+	
+	if (Ball::contains(pos)) {
+		isDragging = true;
+		dragOffset = pos - sf::Vector2f(px, py);
+	}
+}
+
+void Ball::onMouseReleased()
+{
+	isDragging = false;
+}
+
+void Ball::onMouseMoved(const sf::Vector2f& pos, float width, float height)
+{
+	if (isDragging) {
+		px = std::clamp(pos.x - dragOffset.x, radius, width - radius);
+		py = std::clamp(pos.y - dragOffset.y, radius, height - radius);
+	}
+}
+
 
 
 // --- Rectangle Implementations ---
