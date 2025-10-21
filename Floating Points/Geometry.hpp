@@ -1,5 +1,4 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -18,6 +17,9 @@ struct Ball {
 	// Method declarations (implementation in Geometry.cpp)
 	sf::CircleShape createCircle() const;
 	bool contains(const sf::Vector2f& point) const;
+	void onMousePressed(const sf::Vector2f& pos);
+	void onMouseReleased();
+	void onMouseMoved(const sf::Vector2f& pos, float width, float height);
 };
 
 
@@ -31,3 +33,4 @@ struct Rectangle {
 	// Method declaration
 	sf::RectangleShape createRectangle() const;
 };
+
